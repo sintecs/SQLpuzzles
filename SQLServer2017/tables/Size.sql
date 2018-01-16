@@ -1,0 +1,14 @@
+CREATE TABLE dbo.Size
+(
+	SizeID							INT IDENTITY(1, 1) NOT NULL
+	,NumberOfBlocks					INT NOT NULL
+);
+
+ALTER TABLE
+	dbo.Size
+ADD CONSTRAINT
+	PK_Size
+PRIMARY KEY
+(
+	SizeID
+);
