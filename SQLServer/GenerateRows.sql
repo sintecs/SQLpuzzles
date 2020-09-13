@@ -7,7 +7,7 @@
 --------------------------------------------------------------------------------
 CREATE OR ALTER FUNCTION GenerateRows
 (
-   @NumRows                     INT
+   @NumRows                       INT
 )
 RETURNS TABLE AS
 RETURN
