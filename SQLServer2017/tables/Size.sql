@@ -1,14 +1,14 @@
 CREATE TABLE dbo.Size
 (
-	SizeID							INT IDENTITY(1, 1) NOT NULL
-	,NumberOfBlocks					INT NOT NULL
+   SizeID                        TINYINT IDENTITY(1, 1) NOT NULL
+   ,NumberOfBlocks               TINYINT NOT NULL
 );
 
 ALTER TABLE
-	dbo.Size
+   dbo.Size
 ADD CONSTRAINT
-	PK_Size
+   PK_Size
 PRIMARY KEY
 (
-	SizeID
+   SizeID
 );

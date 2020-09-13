@@ -1,21 +1,21 @@
 CREATE TABLE dbo.SquareDataPossible
 (
-	PuzzleID						INT NOT NULL
-	,BlockID						INT NOT NULL
-	,RowID							INT NOT NULL
-	,ColumnID						INT NOT NULL
-	,PossibleValue					INT NOT NULL
+   PuzzleID                   TINYINT NOT NULL
+   ,BlockID                   TINYINT NOT NULL
+   ,RowID                     TINYINT NOT NULL
+   ,ColumnID                  TINYINT NOT NULL
+   ,PossibleValue             TINYINT NOT NULL
 );
 
 ALTER TABLE
-	dbo.SquareDataPossible
+   dbo.SquareDataPossible
 ADD CONSTRAINT
-	PK_SquareDataPossible
+   PK_SquareDataPossible
 PRIMARY KEY
 (
-	PuzzleID
-	,BlockID
-	,RowID
-	,ColumnID
-	,PossibleValue
+   PuzzleID
+   ,BlockID
+   ,RowID
+   ,ColumnID
+   ,PossibleValue
 );
