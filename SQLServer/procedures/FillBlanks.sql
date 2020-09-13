@@ -24,7 +24,8 @@ BEGIN
          INNER JOIN
             dbo.Size AS s ON
                p.SizeID = s.SizeID
-               AND p.PuzzleID = @PuzzleID;
+   WHERE
+      p.PuzzleID = @PuzzleID;
 
    INSERT INTO dbo.SquareData 
    (
@@ -68,7 +69,7 @@ BEGIN
             ) blanks ON
                blanks.BlockID = sd.BlockID
                AND blanks.RowID = sd.RowID
-               AND blanks.ColumnID = sd.ColumnID
+               AND blanks.ColumnID = sd.ColumnID;
 
 END
 
