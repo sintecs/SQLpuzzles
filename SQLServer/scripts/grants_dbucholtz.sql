@@ -4,6 +4,10 @@
 GRANT CREATE FUNCTION TO dbucholtz;
 GRANT CREATE PROCEDURE TO dbucholtz;
 
+GRANT EXECUTE ON dbo.FillBlanks TO dbucholtz;
+GRANT SELECT ON dbo.GenerateRows TO dbucholtz;
+GRANT EXECUTE ON dbo.ResetPuzzle TO dbucholtz;
+
 ------------------------------------------------------------------------------------------
 -- SELECT
 ------------------------------------------------------------------------------------------
