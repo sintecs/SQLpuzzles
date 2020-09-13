@@ -9,6 +9,8 @@ GRANT EXECUTE ON dbo.FillSquareDataPossible TO dbucholtz;
 GRANT SELECT ON  dbo.GenerateRows TO dbucholtz;
 GRANT EXECUTE ON dbo.GetBlockCol TO dbucholtz;
 GRANT EXECUTE ON dbo.GetBlockRow TO dbucholtz;
+GRANT EXECUTE ON dbo.InitializePossibles TO dbucholtz;
+GRANT EXECUTE ON dbo.RemoveColumnKnowns TO dbucholtz;
 GRANT EXECUTE ON dbo.ResetPuzzle TO dbucholtz;
 
 ------------------------------------------------------------------------------------------
