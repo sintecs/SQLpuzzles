@@ -16,6 +16,8 @@ GRANT EXECUTE ON dbo.RemoveRowKnowns TO dbucholtz;
 GRANT EXECUTE ON dbo.ResetPuzzle TO dbucholtz;
 GRANT EXECUTE ON dbo.SolveBlockSoloPossibles TO dbucholtz;
 GRANT EXECUTE ON dbo.SolveCellSoloPossibles TO dbucholtz;
+GRANT EXECUTE ON dbo.SolveColumnSoloPossibles TO dbucholtz;
+GRANT EXECUTE ON dbo.SolveRowSoloPossibles TO dbucholtz;
 
 ------------------------------------------------------------------------------------------
 -- SELECT
