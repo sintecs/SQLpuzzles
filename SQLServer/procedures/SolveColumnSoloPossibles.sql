@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------------
 --                                                                            --
--- This function will move possible values to solved values when there is     --
+-- This procedure will move possible values to solved values when there is    --
 -- only one possible location for a value in this column.                     --
 --                                                                            --
 -- Returns the count of cells that were solved                                --

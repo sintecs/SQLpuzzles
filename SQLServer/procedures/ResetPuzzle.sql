@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------------
 --                                                                            --
--- This function will reset a puzzle to an unsolved state.  It does this by   --
+-- This procedure will reset a puzzle to an unsolved state.  It does this by  --
 -- removing all "guesses" and "founds" from SquareDataPossible and            --
 -- resetting SquareData back to the starting values entered in the table.     --
 --                                                                            --

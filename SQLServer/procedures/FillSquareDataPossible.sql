@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------------
 --                                                                            --
--- This function will fill the possibles table with values.  Each cell that   --
+-- This procedure will fill the possibles table with values.  Each cell that  --
 -- is not a "given" will have all possible valid values entered as possible.  --
 -- This is the first procedure to call to setup a new puzzle for solving.     --
 --                                                                            --
