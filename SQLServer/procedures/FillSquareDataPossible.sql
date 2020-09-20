@@ -37,28 +37,28 @@ BEGIN
                FROM
                   (
                      SELECT
-                        sd.BlockID
-                        ,sd.RowID
-                        ,sd.ColumnID
-                        ,sd.SquareValue
+                        blks.rn AS BlockID
+                        ,rws.rn AS RowID
+                        ,cols.rn AS ColumnID
                      FROM
-                        dbo.SquareData AS sd
-                     WHERE
-                        sd.PuzzleID = @PuzzleID
-                  ) AS sd
+                        dbo.GenerateRows(@PuzzleSize) AS blks
+                           CROSS JOIN
+                              dbo.GenerateRows(SQRT(@PuzzleSize)) AS rws
+                           CROSS JOIN
+                              dbo.GenerateRows(SQRT(@PuzzleSize)) AS cols
+                  ) AS blanks
                      LEFT OUTER JOIN
                         (
                            SELECT
-                              blks.rn AS BlockID
-                              ,rws.rn AS RowID
-                              ,cols.rn AS ColumnID
+                              sd.BlockID
+                              ,sd.RowID
+                              ,sd.ColumnID
+                              ,sd.SquareValue
                            FROM
-                              dbo.GenerateRows(@PuzzleSize) AS blks
-                                 CROSS JOIN
-                                    dbo.GenerateRows(SQRT(@PuzzleSize)) AS rws
-                                 CROSS JOIN
-                                    dbo.GenerateRows(SQRT(@PuzzleSize)) AS cols
-                        ) AS blanks ON
+                              dbo.SquareData AS sd
+                           WHERE
+                              sd.PuzzleID = @PuzzleID
+                        ) AS sd ON
                            blanks.BlockID = sd.BlockID
                            AND blanks.RowID = sd.RowID
                            AND blanks.ColumnID = sd.ColumnID

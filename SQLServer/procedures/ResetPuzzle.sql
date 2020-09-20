@@ -16,7 +16,7 @@ BEGIN
       dbo.SquareData
    WHERE
       (
-         InitialValue <> 1
+         InitialValue != 1
          OR InitialValue IS NULL
       )
       AND PuzzleID = @PuzzleID;
