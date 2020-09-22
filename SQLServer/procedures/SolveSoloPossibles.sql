@@ -17,19 +17,31 @@ BEGIN
    DECLARE @ReturnVal             INT = 0;
    DECLARE @InterimReturnVal      INT = 0;
 
-   EXECUTE dbo.SolveCellSoloPossibles @PuzzleID, @PuzzleSize, @InterimReturnVal;
+   EXECUTE dbo.SolveCellSoloPossibles 
+      @PuzzleID
+      ,@PuzzleSize
+      ,@InterimReturnVal;
 
    SET @ReturnVal = @ReturnVal + @InterimReturnVal;
 
-   EXECUTE dbo.SolveBlockSoloPossibles @PuzzleID, @PuzzleSize, @InterimReturnVal;
+   EXECUTE dbo.SolveBlockSoloPossibles 
+      @PuzzleID
+      ,@PuzzleSize
+      ,@InterimReturnVal;
 
    SET @ReturnVal = @ReturnVal + @InterimReturnVal;
 
-   EXECUTE dbo.SolveColumnSoloPossibles @PuzzleID, @PuzzleSize, @InterimReturnVal;
+   EXECUTE dbo.SolveColumnSoloPossibles 
+      @PuzzleID
+      ,@PuzzleSize
+      ,@InterimReturnVal;
 
    SET @ReturnVal = @ReturnVal + @InterimReturnVal;
 
-   EXECUTE dbo.SolveRowSoloPossibles @PuzzleID, @PuzzleSize, @InterimReturnVal;
+   EXECUTE dbo.SolveRowSoloPossibles 
+      @PuzzleID
+      ,@PuzzleSize
+      ,@InterimReturnVal;
 
    SET @ReturnVal = @ReturnVal + @InterimReturnVal;
    

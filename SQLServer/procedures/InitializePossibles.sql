@@ -17,7 +17,7 @@ BEGIN
    WHERE 
       PuzzleID = @PuzzleID;
    
-   EXEC dbo.FillSquareDataPossible
+   EXECUTE dbo.FillSquareDataPossible
       @PuzzleID
       ,@PuzzleSize;
 
