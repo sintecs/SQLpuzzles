@@ -20,6 +20,7 @@ GRANT EXECUTE ON dbo.SolveCellSoloPossibles TO dbucholtz;
 GRANT EXECUTE ON dbo.SolveColumnSoloPossibles TO dbucholtz;
 GRANT EXECUTE ON dbo.SolveRowSoloPossibles TO dbucholtz;
 GRANT EXECUTE ON dbo.SolveSoloPossibles TO dbucholtz;
+GRANT EXECUTE ON dbo.StartPuzzle TO dbucholtz;
 
 ------------------------------------------------------------------------------------------
 -- SELECT
