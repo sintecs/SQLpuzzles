@@ -44,8 +44,6 @@ BEGIN
       SquareValue = 0
       AND PuzzleID = @PuzzleID;
 
-   COMMIT;
-
    WHILE (@x != 0 AND @LoopCounter <= 20)
    BEGIN
    
@@ -77,7 +75,5 @@ BEGIN
    WHERE
       PuzzleID = @PuzzleID;
    */
-
-   COMMIT;
 
 END;
