@@ -1,9 +1,10 @@
 --------------------------------------------------------------------------------
 --                                                                            --
--- This function will remove impossibilities from the puzzle.                 --
+-- This function will move possible values to solved values when there is     --
+-- only one possible location for a value.                                    --
 --                                                                            --
 --------------------------------------------------------------------------------
-CREATE OR ALTER PROCEDURE RemoveImpossibles
+CREATE OR ALTER PROCEDURE SolveSoloPossibles
 (
    @PuzzleID                      INT
    ,@PuzzleSize                   INT
@@ -12,18 +13,23 @@ CREATE OR ALTER PROCEDURE RemoveImpossibles
 AS
 BEGIN
 
+
    DECLARE @ReturnVal             INT = 0;
    DECLARE @InterimReturnVal      INT = 0;
 
-   EXECUTE dbo.RemoveBlockKnowns @PuzzleID, @PuzzleSize, @InterimReturnVal;
+   EXECUTE dbo.SolveCellSoloPossibles @PuzzleID, @PuzzleSize, @InterimReturnVal;
 
    SET @ReturnVal = @ReturnVal + @InterimReturnVal;
 
-   EXECUTE dbo.RemoveRowKnowns @PuzzleID, @PuzzleSize, @InterimReturnVal;
+   EXECUTE dbo.SolveBlockSoloPossibles @PuzzleID, @PuzzleSize, @InterimReturnVal;
 
    SET @ReturnVal = @ReturnVal + @InterimReturnVal;
 
-   EXECUTE dbo.RemoveColumnKnowns @PuzzleID, @PuzzleSize, @InterimReturnVal;
+   EXECUTE dbo.SolveColumnSoloPossibles @PuzzleID, @PuzzleSize, @InterimReturnVal;
+
+   SET @ReturnVal = @ReturnVal + @InterimReturnVal;
+
+   EXECUTE dbo.SolveRowSoloPossibles @PuzzleID, @PuzzleSize, @InterimReturnVal;
 
    SET @ReturnVal = @ReturnVal + @InterimReturnVal;
    
