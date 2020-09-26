@@ -16,7 +16,7 @@ BEGIN
    DELETE FROM
       dbo.SquareDataPossible
    WHERE
-      PuzzleID = @PuzzleID
+      SquareDataPossible.PuzzleID = @PuzzleID
       AND EXISTS
       (
          SELECT
@@ -24,10 +24,10 @@ BEGIN
          FROM
             dbo.SquareData AS taken_vals
          WHERE
-            PuzzleID = taken_vals.PuzzleID
-            AND taken_vals.BlockID = BlockID
+            taken_vals.PuzzleID = SquareDataPossible.PuzzleID
+            AND taken_vals.BlockID = SquareDataPossible.BlockID
             AND taken_vals.SquareValue IS NOT NULL
-            AND taken_vals.SquareValue = PossibleValue
+            AND taken_vals.SquareValue = SquareDataPossible.PossibleValue
       );
 
    SET @x = @@ROWCOUNT

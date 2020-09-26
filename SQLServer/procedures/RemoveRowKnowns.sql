@@ -17,7 +17,7 @@ BEGIN
    FROM 
       dbo.SquareDataPossible
    WHERE
-      PuzzleID = @PuzzleID
+      SquareDataPossible.PuzzleID = @PuzzleID
       AND EXISTS
       (
          SELECT
@@ -25,11 +25,11 @@ BEGIN
          FROM
             dbo.SquareData AS taken_vals
          WHERE
-            PuzzleID = taken_vals.PuzzleID
-            AND dbo.CheckBlockRow(@PuzzleSize, BlockID) = dbo.CheckBlockRow(@PuzzleSize, taken_vals.BlockID)
-            AND RowID = taken_vals.RowID
+            taken_vals.PuzzleID = SquareDataPossible.PuzzleID
+            AND dbo.GetBlockRow(@PuzzleSize, SquareDataPossible.BlockID) = dbo.GetBlockRow(@PuzzleSize, taken_vals.BlockID)
+            AND taken_vals.RowID = SquareDataPossible.RowID
             AND taken_vals.SquareValue IS NOT NULL
-            AND taken_vals.SquareValue = PossibleValue
+            AND taken_vals.SquareValue = SquareDataPossible.PossibleValue
       );
 
    SET @x = @@ROWCOUNT
