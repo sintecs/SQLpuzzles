@@ -36,7 +36,7 @@ BEGIN
          (
             SELECT
                COUNT(*) AS cnt
-               ,dbo.CheckBlockRow(@PuzzleSize, solo.BlockID) AS PuzzleBlockRow
+               ,dbo.GetBlockRow(@PuzzleSize, solo.BlockID) AS PuzzleBlockRow
                ,solo.RowID
                ,solo.PossibleValue
                ,solo.PuzzleID
@@ -45,14 +45,14 @@ BEGIN
             WHERE
                solo.PuzzleID = @PuzzleID
             GROUP BY
-               dbo.CheckBlockRw(@PuzzleSize, solo.BlockID)
+               dbo.GetBlockRow(@PuzzleSize, solo.BlockID)
                ,solo.PossibleValue
                ,solo.PuzzleID
                ,solo.RowID
          ) AS solo
             INNER JOIN
                SquareDataPossible AS tsd ON
-                  solo.PuzzleBlockRow = dbo.CheckBlockRow(@PuzzleSize, tsd.BlockID)
+                  solo.PuzzleBlockRow = dbo.GetBlockRow(@PuzzleSize, tsd.BlockID)
                   AND solo.RowID = tsd.RowID
                   AND solo.PuzzleID = tsd.PuzzleID
                   AND solo.PossibleValue = tsd.PossibleValue
