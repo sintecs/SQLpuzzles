@@ -12,6 +12,7 @@ CREATE OR ALTER PROCEDURE StartPuzzle
 
 DECLARE @PuzzleSize               INT;
 DECLARE @x                        INT = 999;
+DECLARE @y                        INT = 0;
 DECLARE @LoopCounter              INT = 0;
 DECLARE @InterimReturnValue       INT;
 
@@ -37,32 +38,54 @@ BEGIN
       @PuzzleID
       ,@PuzzleSize;
 
-   -- Remove cells with zeros from the table as we'll be filling these in with answers
+   -- Remove cells with non-given values from the table as we will be filling these in with answers
    DELETE 
       dbo.SquareData 
    WHERE 
-      SquareValue = 0
+      InitialValue != 1
       AND PuzzleID = @PuzzleID;
 
-   WHILE (@x != 0 AND @LoopCounter <= 20)
+   WHILE (@x != 0 AND @LoopCounter <= 5)
    BEGIN
    
-      SET @x = 0;
       SET @LoopCounter = @LoopCounter + 1;
+      SET @y = 0;
 
       EXECUTE dbo.RemoveImpossibles
          @PuzzleID
          ,@PuzzleSize
          ,@InterimReturnValue;
       
-      SET @x = @x + @InterimReturnValue;
+      SET @y = @InterimReturnValue;
 
       EXECUTE dbo.SolveSoloPossibles
          @PuzzleID
          ,@PuzzleSize
          ,@InterimReturnValue;
-
-      SET @x = @x + @InterimReturnValue;
+      
+      SET @y = @y + @InterimReturnValue;
+      
+      --See if all the cells have been solved
+      SET @x = 
+      (
+         SELECT
+            POWER(@PuzzleSize, 2) - COUNT(*)
+         FROM
+            dbo.SquareData AS sd
+         WHERE
+            sd.PuzzleID = @PuzzleID
+      );
+      
+      --If we solved any cells, go through again to see if that found us more solutions
+      SET @LoopCounter =
+      (
+         SELECT
+            CASE
+               WHEN @y > 0
+               THEN @LoopCounter - 1
+               ELSE @LoopCounter
+            END
+      );
       
    END; --WHILE LOOP
 
