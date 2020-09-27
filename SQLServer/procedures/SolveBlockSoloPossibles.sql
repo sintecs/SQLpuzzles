@@ -68,7 +68,7 @@ BEGIN
             AND tsd.ColumnID = sd.ColumnID
       );
    
-   SELECT @x = @@ROWCOUNT;
+   SET @x = @@ROWCOUNT;
 
 END
 
