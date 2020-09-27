@@ -47,21 +47,20 @@ BEGIN
 
    WHILE (@x != 0 AND @LoopCounter <= 5)
    BEGIN
-   
-      SET @LoopCounter = @LoopCounter + 1;
+
       SET @y = 0;
 
       EXECUTE dbo.RemoveImpossibles
          @PuzzleID
          ,@PuzzleSize
-         ,@InterimReturnValue;
+         ,@InterimReturnValue OUT;
       
       SET @y = @InterimReturnValue;
 
       EXECUTE dbo.SolveSoloPossibles
          @PuzzleID
          ,@PuzzleSize
-         ,@InterimReturnValue;
+         ,@InterimReturnValue OUT;
       
       SET @y = @y + @InterimReturnValue;
       
@@ -83,7 +82,7 @@ BEGIN
             CASE
                WHEN @y > 0
                THEN @LoopCounter - 1
-               ELSE @LoopCounter
+               ELSE @LoopCounter + 1
             END
       );
       

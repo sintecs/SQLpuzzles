@@ -20,28 +20,28 @@ BEGIN
    EXECUTE dbo.SolveCellSoloPossibles 
       @PuzzleID
       ,@PuzzleSize
-      ,@InterimReturnVal;
+      ,@InterimReturnVal OUT;
 
    SET @ReturnVal = @ReturnVal + @InterimReturnVal;
 
    EXECUTE dbo.SolveBlockSoloPossibles 
       @PuzzleID
       ,@PuzzleSize
-      ,@InterimReturnVal;
+      ,@InterimReturnVal OUT;
 
    SET @ReturnVal = @ReturnVal + @InterimReturnVal;
 
    EXECUTE dbo.SolveColumnSoloPossibles 
       @PuzzleID
       ,@PuzzleSize
-      ,@InterimReturnVal;
+      ,@InterimReturnVal OUT;
 
    SET @ReturnVal = @ReturnVal + @InterimReturnVal;
 
    EXECUTE dbo.SolveRowSoloPossibles 
       @PuzzleID
       ,@PuzzleSize
-      ,@InterimReturnVal;
+      ,@InterimReturnVal OUT;
 
    SET @ReturnVal = @ReturnVal + @InterimReturnVal;
    
