@@ -1,22 +1,27 @@
 --------------------------------------------------------------------------------
 --                                                                            --
--- This procedure takes a PuzzleID and an integer value considered a "blank"  --
--- and populates all blocks/rows/columns that were not a given for the puzzle --
--- with the "blank" value.  Givens are the initial values in the puzzle that  --
--- are filled in before starting.                                             --
+-- This function takes a PuzzleID and an integer value considered a "blank"   --
+-- and returns all blocks/rows/columns that do not have a value for the       --
+-- puzzle with the supplied "blank" value.                                    --
 --                                                                            --
 --------------------------------------------------------------------------------
-CREATE OR ALTER PROCEDURE FillBlanks
+CREATE OR ALTER FUNCTION FillBlanks
 (
    @PuzzleID                      INT
    ,@BlankValue                   INT
+) RETURNS @Output TABLE 
+(
+   PuzzleID                       INT
+   ,BlockID                       INT
+   ,RowID                         INT
+   ,ColumnID                      INT
+   ,SquareValue                   INT
 ) AS
-
-DECLARE
-   @PuzzleSize                    INT;
 
 BEGIN
 
+   DECLARE @PuzzleSize            INT;
+   
    SELECT
       @PuzzleSize = s.NumberOfBlocks
    FROM
@@ -27,7 +32,7 @@ BEGIN
    WHERE
       p.PuzzleID = @PuzzleID;
 
-   INSERT INTO dbo.SquareData 
+   INSERT INTO @Output 
    (
       PuzzleID
       ,BlockID
@@ -44,33 +49,30 @@ BEGIN
    FROM
       (
          SELECT
-            sd.BlockID
-            ,sd.RowID
-            ,sd.ColumnID
-            ,sd.SquareValue
+            blks.rn AS BlockID
+            ,rws.rn AS RowID
+            ,cols.rn AS ColumnID
          FROM
-            dbo.SquareData AS sd
-         WHERE
-            sd.PuzzleID = @PuzzleID
-            AND sd.InitialValue IS NULL
-      ) sd
-         LEFT OUTER JOIN
-            (
-               SELECT
-                  blks.rn AS BlockID
-                  ,rws.rn AS RowID
-                  ,cols.rn AS ColumnID
-               FROM
+            dbo.GenerateRows(@PuzzleSize) blks
+               CROSS JOIN
                   dbo.GenerateRows(SQRT(@PuzzleSize)) cols
-                     CROSS JOIN
-                        dbo.GenerateRows(@PuzzleSize) blks
-                     CROSS JOIN
-                        dbo.GenerateRows(SQRT(@PuzzleSize)) rws
-            ) blanks ON
-               blanks.BlockID = sd.BlockID
+               CROSS JOIN
+                  dbo.GenerateRows(SQRT(@PuzzleSize)) rws
+      ) blanks
+   WHERE
+      NOT EXISTS
+         (
+            SELECT
+               NULL
+            FROM
+               dbo.SquareData AS sd
+            WHERE
+               sd.PuzzleID = @PuzzleID
+               AND blanks.BlockID = sd.BlockID
                AND blanks.RowID = sd.RowID
-               AND blanks.ColumnID = sd.ColumnID;
+               AND blanks.ColumnID = sd.ColumnID
+         );
+
+   RETURN;
 
 END
-
-GO
