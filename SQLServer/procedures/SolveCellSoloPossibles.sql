@@ -24,54 +24,52 @@ BEGIN
       ,SquareValue
       ,InitialValue
    )
-   (
-      SELECT
-         @PuzzleID
-         ,tsd.BlockID
-         ,tsd.RowID
-         ,tsd.ColumnID
-         ,tsd.PossibleValue
-         ,0
-      FROM
-         dbo.SquareDataPossible tsd
-            INNER JOIN
-               (
-                  SELECT
-                     COUNT(*) cnt
-                     ,BlockID
-                     ,RowID
-                     ,ColumnID
-                     ,PuzzleID
-                  FROM
-                     dbo.SquareDataPossible AS solo
-                  WHERE
-                     solo.PuzzleID = @PuzzleID
-                  GROUP BY
-                     BlockID
-                     ,RowID
-                     ,ColumnID
-                     ,PuzzleID
-               ) solo ON
-                  tsd.PuzzleID = solo.PuzzleID
-                  AND tsd.PuzzleID = @PuzzleID
-                  AND tsd.RowID = solo.RowID
-                  AND tsd.ColumnID = solo.ColumnID
-                  AND tsd.BlockID = solo.BlockID
-                  AND solo.cnt = 1
-      WHERE
-         NOT EXISTS
-         (
-            SELECT
-               NULL
-            FROM
-               dbo.SquareData sd
-            WHERE
-               tsd.PuzzleID = sd.PuzzleID
-               AND tsd.BlockID = sd.BlockID
-               AND tsd.RowID = sd.RowID
-               AND tsd.ColumnID = sd.ColumnID
-         )
-   );
+   SELECT
+      @PuzzleID
+      ,tsd.BlockID
+      ,tsd.RowID
+      ,tsd.ColumnID
+      ,tsd.PossibleValue
+      ,0
+   FROM
+      dbo.SquareDataPossible tsd
+         INNER JOIN
+            (
+               SELECT
+                  COUNT(*) cnt
+                  ,BlockID
+                  ,RowID
+                  ,ColumnID
+                  ,PuzzleID
+               FROM
+                  dbo.SquareDataPossible AS solo
+               WHERE
+                  solo.PuzzleID = @PuzzleID
+               GROUP BY
+                  BlockID
+                  ,RowID
+                  ,ColumnID
+                  ,PuzzleID
+            ) solo ON
+               tsd.PuzzleID = solo.PuzzleID
+               AND tsd.PuzzleID = @PuzzleID
+               AND tsd.RowID = solo.RowID
+               AND tsd.ColumnID = solo.ColumnID
+               AND tsd.BlockID = solo.BlockID
+               AND solo.cnt = 1
+   WHERE
+      NOT EXISTS
+      (
+         SELECT
+            NULL
+         FROM
+            dbo.SquareData sd
+         WHERE
+            tsd.PuzzleID = sd.PuzzleID
+            AND tsd.BlockID = sd.BlockID
+            AND tsd.RowID = sd.RowID
+            AND tsd.ColumnID = sd.ColumnID
+      );
 
    SET @x = @@ROWCOUNT;
 
