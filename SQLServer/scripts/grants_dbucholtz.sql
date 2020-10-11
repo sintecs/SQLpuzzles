@@ -11,6 +11,7 @@ GRANT EXECUTE ON dbo.FillSquareDataPossible TO dbucholtz;
 GRANT EXECUTE ON dbo.GetBlockCol TO dbucholtz;
 GRANT EXECUTE ON dbo.GetBlockRow TO dbucholtz;
 GRANT EXECUTE ON dbo.InitializePossibles TO dbucholtz;
+GRANT EXECUTE ON dbo.PrintPuzzle TO dbucholtz;
 GRANT EXECUTE ON dbo.RemoveBlockKnowns TO dbucholtz;
 GRANT EXECUTE ON dbo.RemoveColumnKnowns TO dbucholtz;
 GRANT EXECUTE ON dbo.RemoveImpossibles TO dbucholtz;
